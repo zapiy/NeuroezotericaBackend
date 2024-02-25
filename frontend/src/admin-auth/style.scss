@@ -1,0 +1,100 @@
+@import "../mixins.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+#app{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    height: 100vh;
+    height: 100dvh;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include adaptive((
+		font-size: (
+			every-x 20rem, 
+			wide tablet 16rem, 
+			middle 18rem,
+			small 30rem,
+		),
+	));
+}
+
+#form{
+    position: relative;
+    @include d-flex(v, $gap: 10rem);
+    width: 90%;
+    
+    margin: 0 auto;
+
+    @include adaptive((
+        padding: (
+            (20rem 2%), esmall (10rem 5rem)
+        ),
+        width: (
+            tablet 70%,
+            wide 60%,
+            extra 50%,
+            ultra 40%,
+        )
+    ));
+
+    header{
+        user-select: none;
+        @include d-flex(h, $gap: 10rem);
+        width: 100%;
+        margin-bottom: 20rem;
+
+        #logo{
+            @include adaptive((
+                width: (
+                    small 70rem,
+                    middle wide 80rem,
+                    tablet every-x 60rem,
+                ),
+            ));
+        }
+    }
+}
+
+.just-input{
+    @include d-flex(v w, $gap: 5rem);
+    width: 100%;
+    margin: 10rem 0;
+
+    & > input{
+        padding: 10rem;
+        border-bottom: 2rem solid var(--primary-color);
+        width: 100%;
+    }
+
+    & > input{
+        border: 2rem solid var(--primary-color);
+        border-radius: 10rem;
+
+        &:focus{
+            background-color: var(--primary-lite-color);
+
+            &::placeholder{
+                display: none;
+            }
+        }
+    }
+}
+
+#submit{
+    padding: 10rem;
+    background-color: var(--primary-color);
+    border-radius: 10rem;
+    margin: 10rem auto;
+    width: 100%;
+
+    &:active{
+        opacity: .8;
+        background-color: var(--primary-color);
+    }
+}

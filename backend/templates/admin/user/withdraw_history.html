@@ -1,0 +1,52 @@
+{% extends "./base.html" %}
+
+{% block tab_content %}
+
+    {% if withdraw %}
+        <h1 class="mh">Всего выведено: {{ stat.total }} ₽</h1>
+        {% if stat.profit and stat.profit > 0 %}
+            <h1 class="mh">Заработок сервиса: {{ stat.profit }} ₽</h1>
+        {% endif %}
+        
+        <div class="table-overflow">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Банк</th>
+                        <th>Карта</th>
+                        <th>ФИО</th>
+                        <th>Сумма</th>
+                        <th>Заработок сервиса</th>
+                        <th>Статус</th>
+                        <th>Дата запроса</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in withdraw %}
+                        <tr>
+                            <tr>
+                                <th>{{ item.bank_name }}</th>
+                                <th>{{ item.card }}</th>
+                                <td>{{ item.full_name }}</td>
+                                
+                                {% if item.status == "done" %}
+                                    <td>{{ item.count }} ₽</td>
+                                    <td>{{ item.service_profit }} ₽</td>
+                                    <td class="confirm">Оплачено</th>
+                                {% elif item.status == "fail" %}
+                                    <td class="cancel" colspan="3" align="center">Отменено</td>
+                                {% endif %}
+
+                                <td>{{ item.created_at }}</td>
+                            </tr>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+                
+    {% else %}
+        <h1 class="mh">Выплаты отсутствуют</h1>
+    {% endif %}
+    
+{% endblock %}

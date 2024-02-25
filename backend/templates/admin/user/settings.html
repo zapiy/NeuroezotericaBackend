@@ -1,0 +1,31 @@
+{% extends "./base.html" %}
+
+{% block tab_content %}
+    <form class="just-input" method="POSTM" action="{% url 'admin:user_switch' user.uuid %}">
+        <label>Сменить Роль</label>
+
+        {% if user.role == "client" %}
+            <button class="cancel outline" type="submit">Эксперт</button>
+        {% elif user.role == "expert" %}
+            <button class="gold outline" type="submit">Клиент</button>
+        {% endif %}
+    </form>
+
+    {% if permission.owner %}
+        {% if user.role == "expert" %}
+            <form method="POSTM" action="{% url 'admin:user_settings' user.uuid %}">
+                <div class="just-input">
+                    <label>Комиссия сервиса</label>
+                    <input type="number" name="comission" min="1" max="100" 
+                        value="{{ settings.comission }}" required>
+                </div>
+
+                <button class="primary mw" type="submit">Сохранить</button>
+            </form>
+        {% endif %}
+    {% endif %}
+
+    <form method="POSTM" action="{% url 'admin:user_block' user.uuid %}">
+        <button class="primary mw cancel outline" type="submit">Заблокировать</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,770 @@
+@import "../mixins.scss";
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.cdnfonts.com/css/bebas-neue');
+
+
+#app{
+    --header-height: 80rem;
+    user-select: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    @include adaptive((
+        --header-height: (_ 80rem, small middle tablet 100rem)
+    ));
+}
+
+#header{
+    position: fixed;
+    z-index: 5;
+    top: 0; left: 0;
+    width: 100%; height: var(--header-height);
+    padding: 0 40rem;
+    background: var(--background);
+    overflow: visible;
+
+    transition: .2s height, .2s padding, 
+        .2s opacity, visibility .2s;
+
+    &.hidden{
+        opacity: 0;
+        visibility: collapse
+    }
+
+    @include d-flex(h sb);
+
+    #logo{
+        @include adaptive((
+            width: (
+                small middle wide 80rem,
+                tablet every-x 60rem,
+            ),
+        ));
+    }
+
+    
+    #burger{ display: none; }
+
+    @include respond-to(small middle tablet){
+
+        #navigator{
+            position: absolute;
+            top: 100%; left: 0;
+            width: 100% !important; height: calc(100vh - var(--header-height));
+            flex-direction: column !important;
+            justify-content: center;
+            gap: 10rem;
+
+            background: var(--background);
+            font-size: 30rem !important;
+
+            &.hidden{
+                display: none;
+            }
+        }
+
+        & > .download-btn{
+            font-size: 24rem !important;
+            width: 50%;
+        }
+
+        #burger{
+            display: block;
+            position: relative;
+            overflow: visible;
+    
+            &::before{ top: -10rem; }
+            &::after{ bottom: -10rem; }
+            &::before, &::after{
+                content: '';
+                position: absolute;
+                left: 0;
+            }
+        }
+        #burger, #burger::before, #burger::after{
+            width: 40rem; height: 4rem;
+            border-radius: 4rem;
+            background-color: var(--foreground);
+        }
+    }
+
+    #navigator{
+        width: fit-content;
+        font-size: 20rem;
+        @include d-flex(h);
+
+        @include adaptive((
+            font-size: (
+                20rem,
+                small 15rem,
+                esmall 10rem,
+            ),
+            gap: (
+                tablet wide extra 25rem, 
+                ultra 50rem
+            ),
+        ));
+
+        & > .item{
+            text-transform: uppercase;
+            cursor: pointer;
+    
+            &::after{
+                content: "";
+    
+                transition: width .2s, left .2s;
+                width: 0; left: 50%;
+            }
+    
+            &:hover, &.selected{
+                position: relative;
+    
+                &::after{
+                    content: "";
+    
+                    position: absolute;
+                    bottom: 1rem; left: 0;
+                    width: 100%; height: 1rem;
+                    background-color: var(--foreground) !important;
+                }
+            }
+        }
+    }
+}
+
+#content{
+    margin-top: calc(var(--header-height) * 2);
+}
+
+.download-btn{
+    background-color: var(--primary-color);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10rem 15rem;
+
+    border-radius: 12rem;
+    box-shadow: 0rem 0rem 25rem 0rem #B109B5;
+
+    font-size: 20rem;
+    font-weight: 400;
+}
+
+.text-slider {
+    --slide-delay: 5s;
+
+    & > p{
+        width: max-content; height: 1.2em;
+        line-height: 1.2em;
+        position: relative;
+        overflow: hidden;
+
+        & > span {
+            display: block;
+
+            animation-delay: var(--slide-delay);
+            @include line-anim(linear calc(var(--slide-delay) * 2) infinite alternate, transform, (
+                translateY(0%), translateY(-50%), translateY(-50%)
+            ));
+
+            &:not(:has(> br)){
+                @include line-anim(linear calc(var(--slide-delay) * 2) infinite alternate, transform, (
+                    translateY(0%), translateY(-100%), translateY(-100%)
+                )); 
+            }
+        }
+    }
+}
+
+.section{
+    position: relative;
+    width: 100%; height: fit-content;
+
+    &:not(.wrap){
+        @include adaptive((
+            padding: (
+                _ (20rem 2%), esmall (10rem 5rem)
+            ),
+        ));
+    }
+    
+    &.fw{
+		width: 100vw; height: 100vh;
+	}
+}
+
+#sec-main{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    background: no-repeat center url("/res/splash.jpg");
+    
+    @include adaptive((
+        background-size: (every 90%, wide 70%, every-x 45%),
+    ));
+
+    #name{
+        text-transform: uppercase;
+
+        @include adaptive((
+            font-size: (100rem, small 80rem),
+        ));
+    }
+
+    #sub-info{
+        @include d-flex(h end);
+        margin-left: 8%;
+        text-transform: uppercase;
+
+        #logo{
+            margin-right: 20rem;
+            width: 80rem;
+        }
+    }
+}
+
+#sec-idea{
+    @include d-flex(c);
+    padding: 100rem 0;
+
+    #title{
+        text-align: center;
+        text-transform: uppercase;
+
+        @include adaptive((
+            font-size: (24rem, small 22rem, esmall 18rem),
+        ));
+
+        @include d-flex(v c);
+    }
+
+    #mini-badge{
+        font-family: 'Montserrat';
+        position: absolute;
+        top: 2%; left: 2%;
+    
+        padding: 2rem 10rem;
+        border: 2rem solid var(--foreground);
+        border-radius: 8rem;
+    }
+}
+
+#sec-pros{
+    @include d-flex(v);
+    padding-bottom: 50rem;
+
+    #title, #subtitle{
+        text-align: center;
+        font-size: 20rem;
+        text-transform: uppercase;
+    }
+
+    #subtitle{
+        margin-top: 30rem;
+        text-decoration: underline;
+    }
+
+    #actions{
+        margin-top: 50rem;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15rem;
+
+        & > .item{
+            border: 2rem solid var(--foreground);
+            border-radius: 20rem;
+            padding: 10rem 25rem;
+
+            text-align: center;
+            vertical-align: middle;
+            line-height: normal;
+            text-transform: uppercase;
+            font-size: 20rem;
+
+            &:hover:not(.selected){
+                opacity: .8;
+            }
+
+            &.selected{
+                background-color: var(--color-gray);
+                color: var(--background);
+            }
+        }
+    }
+}
+
+#sec-transit{
+    z-index: 1;
+    font-family: "Montserrat";
+
+    #slider{
+        z-index: 0;
+        height: 150rem;
+    
+        #thumb{
+            position: absolute;
+            top: 0; left: 0;
+    
+            color: var(--color-gray);
+            opacity: 0.2;
+        
+            font-size: 200rem;
+            text-transform: uppercase;
+        }
+    }
+    
+    & > .inner{
+        z-index: 1;
+        padding: 20rem 10%;
+
+        @include d-flex(v);
+
+        width: 100%; min-height: 250rem;
+        background-color: var(--color-gray);
+        color: var(--background);
+        border-radius: 100rem;
+
+        #transit{
+            @include d-flex(h sb);
+            width: 100%;
+
+            .down-icon{
+                width: 40rem;
+                height: 40rem;
+            }
+        }
+
+        .mini-badge{
+            padding: 2rem 10rem;
+            border: 2rem solid var(--background);
+            border-radius: 15rem;
+            
+            text-align: center;
+            font-size: 20rem;
+        }
+
+        #title{
+            margin: 40rem 0;
+            text-align: center;
+            text-transform: uppercase;
+
+            @include adaptive((
+                font-size: (every 50rem, every-x 80rem, small 40rem),
+            ));
+        }
+
+    }
+    
+}
+
+#sec-functions{
+    --overflow-delta: 100rem;
+    margin-top: calc(0px - var(--overflow-delta));
+    height: calc(100vh + (var(--overflow-delta) * 2));
+    padding-bottom: var(--overflow-delta);
+    z-index: 0;
+    background: no-repeat 100% url("/res/functions-bg.png");
+
+    --base-delta: 0px;
+
+    .bg-circle{
+        --radius-index: 1;
+        position: absolute;
+        transition: calc(1s * var(--radius-index)) width .2s,
+            calc(1s * var(--radius-index)) height .2s;
+
+        top: calc(50% + var(--overflow-delta)); left: 50%;
+        border: 2rem solid var(--foreground);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+
+        width: calc(var(--base-delta) + (var(--radius-index) * 400rem));
+        height: calc(var(--base-delta) + (var(--radius-index) * 400rem));
+    }
+
+    &.visited{
+        @include line-anim(linear 2s alternate, --base-delta, (0rem, -100rem, 0rem));
+
+        #phone-viewer{
+            --scale: 1;
+        }
+    }
+
+    #phone-viewer{
+        --scale: 0.5;
+        position: absolute;
+        top: calc(50% + var(--overflow-delta)); left: 50%;
+
+        transition: 1s transform 2s, width .2s, height .2s;
+        transform: translate(-50%, -50%) scale(var(--scale));
+
+        border: 8rem solid #000;
+        border-radius: 40rem;
+        background-color: white;
+
+        @include adaptive((
+            width: (
+                small middle 80vw,
+                tablet wide extra 40vh, 
+                ultra 45vh
+            ),
+            height: (
+                small middle 80vh,
+                tablet wide extra 60vh, 
+                ultra 90vh
+            ),
+        ));
+
+        #video{
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+    }
+}
+
+#sec-makemoney{
+    @include d-flex(h sb);
+    padding: 20% 1%;
+    background-color: var(--color-gray);
+    color: var(--background);
+
+    @include respond-to(small middle tablet){
+        height: 180vh;
+
+        #left-side{
+            align-self: start;
+            max-width: 80vw;
+        }
+
+        #right-side{
+            width: 80vw !important;
+            position: absolute;
+            bottom: 5%; right: 5%;
+        }
+    }
+
+    #left-side{
+        @include d-flex(v w sb);
+        gap: 30rem;
+        height: fit-content;
+        padding: 0 20rem 20rem;
+        
+        #down-icon{
+            width: 100rem;
+            height: 100rem;
+        }
+
+        #title{
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 65rem;
+
+            @include adaptive((
+                font-size: (every 50rem, every-x 70rem),
+            ));
+        }
+
+        #subtitle{
+            font-family: Montserrat;
+            font-size: 26rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+
+            @include adaptive((
+                font-size: (every 20rem, every-x 26rem),
+            ));
+        }
+
+        #download{
+            font-size: 50rem;
+            padding: 10rem 100rem;
+            border-radius: 50rem;
+        }
+    }
+
+    #right-side{
+        width: 30%; height: 100vh;
+        border-left: 2rem solid var(--background);
+        @include d-flex(v c);
+
+        @include adaptive((
+            width: (wide 50%, every-x 30%),
+        ));
+
+        #title{
+            @include d-flex(h sb);
+            border-bottom: 2rem solid var(--background);
+            width: 90%;
+            margin-bottom: 20rem;
+            text-transform: uppercase;
+        }
+
+        #preview{
+            @include adaptive((
+                height: (every 70%, extra 75%, ultra 85%),
+            ));
+        }
+    }
+}
+
+#sec-choices{
+    & > #title{
+        text-align: center;
+        font-size: 80rem;
+        line-height: 80rem;
+        text-transform: uppercase;
+        margin: 50rem 0;
+    }
+
+    & > #cards{
+        @include d-flex(h c wp);
+        max-width: 70%;
+        margin: 0 auto;
+        gap: 20rem;
+        text-align: center;
+
+        .item{
+            @include d-flex(v c);
+            gap: 10rem;
+
+            #icon{
+                width: 80rem;
+                height: 80rem;
+                border-radius: 10rem;
+            }
+
+            #title{
+                text-transform: uppercase;
+                text-align: center;
+            }
+        }
+    }
+}
+
+#sec-download{
+    overflow: visible;
+    
+    #sphere{
+        position: absolute;
+        top: 15%;
+        transform: rotate(90deg);
+        transform-origin: top left;
+        
+        @include adaptive((
+            width: (every 80vh, every-x 125vh),
+            height: (every 60vw, every-x 40vw),
+            left: (every 60%, every-x 40%),
+        ));
+
+        opacity: .6;
+        border-top-left-radius: 40rem;
+        border-top-right-radius: 40rem;
+
+        filter: drop-shadow(0 -5mm 15mm rgb(80, 19, 95)) blur(2px);
+
+        box-shadow: -20mm -5mm 10mm 10mm rgba(16,15,21,255);   
+    }
+
+    #links{
+        @include d-flex(v w);
+        gap: 15rem;
+        position: absolute;
+        top: 20%; right: 10%;
+        font-family: Montserrat;
+
+        #logo{
+            width: 100rem;
+        }
+
+        #title{
+            font-size: 40rem;
+
+            text-align: center;
+            font-weight: 600;
+            line-height: 50rem;
+        }
+
+        #subtitle{
+            font-size: 20rem;
+            font-weight: 500;
+            line-height: 32rem; 
+        }
+
+        .download-badge{
+            width: 220rem
+        }
+    }
+}
+
+#sec-feedback{
+    @include d-flex(v);
+
+    #mini-badge{
+        position: absolute;
+        padding: 2rem 10rem;
+        border: 2rem solid var(--foreground);
+        border-radius: 8rem;
+    }
+
+    & > .inner{
+        margin: 50rem 0;
+        @include d-flex(h sb);
+
+        #logo, #logo-reverse{
+            width: 100rem;
+        }
+        #logo-reverse{
+            transform: rotate(180deg);
+        }
+
+        & > .window{
+            width: 60%; min-height: 60%;
+            height: fit-content;
+
+            background-color: var(--color-gray);
+            border-radius: 50rem;
+            @include d-flex(v w);
+            color: var(--background);
+
+            padding: 50rem;
+
+            #brackets > .icon{
+                width: 30rem;
+                height: 40rem;
+            }
+            
+            #text{
+                margin-top: 30rem;
+                font-size: 30rem;
+                line-height: 30rem;
+            }
+
+            #author{
+                margin-top: 60rem;
+                gap: 20rem;
+                align-self: flex-end;
+                @include d-flex(h);
+
+                #avatar{
+                    height: 50rem;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        #view-feedback{
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+
+            text-decoration: underline;
+            text-transform: uppercase;
+
+            @include adaptive((
+                font-size: (every 30rem, every-x 20rem),
+            ));
+        }
+    }
+}
+
+#footer{
+    overflow: visible;
+    margin-top: 80rem;
+
+    @include adaptive((
+        height: (small 25vh, middle 30vh, tablet 40vw, wide every-x 30vw),
+    ));
+
+    #bg-shape{
+        z-index: 0;
+        position: absolute;
+        left: 0;
+        width: 100%; height: 200%;
+
+        @include adaptive((
+            top: (small middle 0, tablet wide every-x 10%),
+        ));
+        
+        background: linear-gradient(0.40turn, #fff, #000 30%);
+        border-radius: 50%;
+        box-shadow: 0 0 10mm 10mm rgba(228, 114, 31, 0.50);
+    }
+
+    & > .inner{
+        z-index: 1;
+        position: absolute;
+        overflow: visible;
+        bottom: 20rem; left: 0;
+        width: 100%; height: 100%;
+        @include d-flex(v end);
+        padding: 0 10%;
+        gap: 10rem;
+
+        font-family: Montserrat;
+        text-align: center;
+        
+        #title{
+            font-weight: 700;
+
+            @include adaptive((
+                font-size: (
+                    small middle 22rem, 
+                    tablet 25rem, 
+                    wide 20rem, 
+                    extra 25rem, 
+                    ultra 40rem
+                ),
+                line-height: (
+                    small middle 24rem, 
+                    wide tablet 30rem, 
+                    extra 40rem, 
+                    ultra 60rem
+                ),
+            ));
+        }
+
+        #subtitle{
+            font-weight: 400;
+
+            @include adaptive((
+                font-size: (
+                    small middle tablet 16rem, 
+                    wide 14rem, 
+                    extra 12rem, 
+                    ultra 14rem
+                ),
+                line-height: (
+                    small middle 20rem, 
+                    wide tablet 16rem, 
+                    extra 14rem, 
+                    ultra 16rem
+                ),
+            ));
+        }
+
+        #socials{
+            @include d-flex(h);
+            gap: 20rem;
+            overflow: visible;
+
+            & > .item{
+                transition: .2s transform;
+
+                @include adaptive((
+                    width: (small 40rem, tablet 60rem, middle wide 50rem, every-x 40rem),
+                    height: (small 40rem, tablet 60rem, middle wide 50rem, every-x 40rem),
+                ));
+
+                &:hover{
+                    transform: scale(1.2);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+{% extends "./base.html" %}
+
+{% block tab_content %}
+
+    {% if table.expected %}
+        <h1 class="mh">Ожидают перевода</h1>
+        <div class="table-overflow">
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Исходный текст</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for code, text in table.expected.items %}
+                    <tr a-linked = "{% url 'admin:translate_word' code=locale.code text_code=code %}">
+                        <th>{{ code }}</th>
+                        <td>{{ text }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    {% if table.complete %}
+        <h1 class="mh">Переведено</h1>
+        <div class="table-overflow">
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Исходный текст</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for code, text in table.complete.items %}
+                    <tr a-linked = "{% url 'admin:translate_word' code=locale.code text_code=code %}">
+                        <th>{{ code }}</th>
+                        <td>{{ text }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

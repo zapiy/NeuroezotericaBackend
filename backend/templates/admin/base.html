@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/static/res/logo.svg" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <title>Neuroezoterica Admin</title>
+    <script type="module" crossorigin src="/static/assets/admin-87177105.js"></script>
+    <link rel="modulepreload" crossorigin href="/static/assets/global-31735648.js">
+    <link rel="stylesheet" href="/static/assets/global-69c35530.css">
+    <link rel="stylesheet" href="/static/assets/admin-08461cf0.css">
+  </head>
+  <body>
+    <section id="app">
+      <header id="header">
+        <div id="switch">
+          <img src="/static/res/logo.svg" id="logo">
+          <div id="burger"></div>
+        </div>
+
+        <nav id="navigator">
+          <div class="inner">
+            {% if permission.owner %}
+              <a class="item {% if tab == 'withdraw' %}selected{% endif %}" 
+                href="{% url 'admin:main' %}">Запросы выплат</a>
+
+              <a class="item {% if tab == 'profit' %}selected{% endif %}" 
+                href="{% url 'admin:profit_stats' %}">Мониторинг заработка</a>
+            {% endif %}
+            
+            <a class="item {% if tab == 'users' %}selected{% endif %}" 
+              href="{% url 'admin:users' %}">Пользователи</a>
+  
+            <a class="item {% if tab == 'news' %}selected{% endif %}" 
+              href="{% url 'admin:news' %}">Новости</a>
+  
+            {% if permission.owner %}
+              <a class="item {% if tab == 'categories' %}selected{% endif %}" 
+                href="{% url 'admin:categories' %}">Категории услуг</a>
+            {% endif %}
+  
+            <a class="item {% if tab == 'translate' %}selected{% endif %}" 
+              href="{% url 'admin:translation' %}">Перевод приложения</a>
+  
+            {% if permission.owner %}
+              <a class="item {% if tab == 'moderators' %}selected{% endif %}" 
+                href="{% url 'admin:moderators' %}">Модераторы</a>
+            {% endif %}
+          </div>
+        </nav>
+      </header>
+
+      {% block content %}{% endblock %}
+    </section>
+
+    <div class="modal-overflow hidden"></div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"></script>
+
+    {% block script %}{% endblock %}
+
+  </body>
+</html>

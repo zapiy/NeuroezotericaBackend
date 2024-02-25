@@ -1,0 +1,131 @@
+
+@function contains($list, $item) { @return index($list, $item) != null; }
+
+@mixin respond-to($media) {
+    @if contains($media, small) or contains($media, every) {
+        @media only screen and (max-width: 479px) { @content; }
+    }
+    @else if contains($media, esmall) or contains($media, every) {
+        @media only screen and (max-width: 300px) { @content; }
+    }
+    
+    @if contains($media, middle) or contains($media, every) {
+        @media only screen and (min-width: 480px) and (max-width: 767px) { @content; }
+    }
+    @if contains($media, tablet) or contains($media, every) {
+        @media only screen and (min-width: 768px) and (max-width: 959px) { @content; }
+    }
+    @if contains($media, wide) or contains($media, every) {
+        @media only screen and (min-width: 960px) and (max-width: 1199px) { @content; }
+    }
+    @if contains($media, extra) or contains($media, every-x) {
+        @media only screen and (min-width: 1200px) and (max-width: 1599px) { @content; }
+    }
+    @if contains($media, ultra) or contains($media, every-x) {
+        @media only screen and (min-width: 1600px) { @content; }
+    }
+}
+
+@mixin adaptive($properties) {
+    $output: ();
+    @each $prop, $packs in $properties{
+        @each $pack in $packs{
+            @if (type-of($pack) == "list"){
+                $val: nth($pack, length($pack));
+
+                @for $i from 1 through (length($pack)-1) {
+                    $type: nth($pack, $i);
+                    
+                    @if (not(map-has-key($output, $type))) {
+                        $output: map-merge($output, ($type: ()));
+                    }
+    
+                    $stack: map-get($output, $type);
+                    $stack: map-merge($stack, ($prop: $val));
+    
+                    $output: map-merge($output, ($type: $stack));
+                }
+            }
+            @else{
+                @if (not(map-has-key($output, "_"))) {
+                    $output: map-merge($output, ("_": ()));
+                }
+
+                $stack: map-get($output, "_");
+                $stack: map-merge($stack, ($prop: $pack));
+
+                $output: map-merge($output, ("_": $stack));
+            }
+        }
+    }
+
+    @each $type, $pairs in $output{
+        @if ($type == "_") {
+            @each $prop, $value in $pairs{
+                #{$prop}: #{$value};
+            }
+        }
+        @else{
+            @include respond-to($type){
+                @each $prop, $value in $pairs{
+                    #{$prop}: #{$value};
+                }
+            }
+        }
+    }
+}
+
+@mixin d-flex($def, $gap: "") {
+    display: flex;
+
+    @if contains($def, "h") { flex-direction: row; }
+    @else if contains($def, "v") { flex-direction: column; }
+
+    @if contains($def, "w") { align-items: flex-start; }
+    @else if contains($def, "e") { align-items: end; }
+    @else { align-items: center; }
+
+    @if contains($def, "st") { justify-content: flex-start; }
+    @else if contains($def, "end") { justify-content: flex-end; }
+    @else if contains($def, "c") { justify-content: center; }
+    @else if contains($def, "sb") { justify-content: space-between; }
+
+    @if contains($def, "wp") { flex-wrap: wrap; }
+    @else { flex-wrap: nowrap; }
+
+    @if $gap != "" { 
+        gap: #{$gap};
+    }
+}
+
+@mixin line-anim($params, $property, $stops) {
+    $name: #{"gen-anim-" + (100 + random(10000))};
+    @at-root{
+        $delta: calc(100 / length($stops));
+
+        @keyframes #{$name} {
+            @for $i from 1 through length($stops) {
+                #{($delta * $i) + "%"} { #{$property}: nth($stops, $i); }
+            }
+        }
+    };
+    animation: $name #{$params};
+}
+
+@mixin animation($params, $stops) {
+    $name: #{"gen-anim-" + (100 + random(10000))};
+    @at-root{
+        $delta: calc(100 / length($stops));
+
+        @keyframes #{$name} {
+            @for $i from 1 through length($stops) {
+                #{($delta * $i) + "%"} { 
+                    @each $prop, $value in nth($stops, $i){
+                        #{$prop}: #{$value};
+                    }
+                }
+            }
+        }
+    };
+    animation: $name #{$params};
+}

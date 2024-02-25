@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/res/logo.svg" />
+
+    <title>Neuroezoterica App</title>
+  </head>
+  <body>
+    <section id="app">
+      <header id="header">
+        <img src="/res/logo.svg" id="logo">
+
+        <nav id="navigator" class="hidden">
+          <span class="item selected" id="sh-main">Главная</span>
+          <span class="item" id="sh-pros">Преимущества</span>
+          <span class="item" id="sh-makemoney">Программа лояльности</span>
+          <span class="item" id="sh-footer">Контакты</span>
+        </nav>
+
+        <button class="download-btn">Скачать приложение</button>
+        <div id="burger"></div>
+      </header>
+
+      <section id="content">
+        <section id="sec-main" class="section fw">
+          <h1 id="name">Нейро <p>Эзотерика</p></h1>
+          
+          <div id="sub-info">
+            <img src="/res/logo.svg" id="logo">
+            <h2>
+              <p>Проходи свои трансформации</p>
+              <p>и зарабатывай онлайн</p>
+            </h2>
+          </div>
+        </section>
+
+        <section id="sec-idea" class="section">
+          <div id="mini-badge">Идея</div>
+          <h1 id="title" class="text-slider">
+            <p>
+              <span>
+                Пространство, где можно найти своего<br/>
+                Больше не нужно тратить время на поиски,
+              </span>
+            </p>
+            <p>
+              <span>
+                наставника и проводника<br/>
+                всё в одном месте
+              </span>
+            </p>
+          </h1>
+        </section>
+
+        <hr/>
+
+        <section id="sec-pros" class="section">
+          <h1 id="title">
+            <p>Доступ к мировым экспертам из любой точки мира</p>
+          </h1>
+
+          <h1 id="subtitle">Открыть приложение</h1>
+
+          <div id="actions">
+            <div class="item">Удобство и доступность</div>
+            <div class="item">Заработок вместе с нами</div>
+            <div class="item">Видеоконсультации</div>
+            <div class="item">Интуитивный интерфейс</div>
+            <div class="item">Система лояльности</div>
+            <div class="item">Анонимность</div>
+          </div>
+        </section>
+
+        <section id="sec-transit" class="section wrap no-header">
+          <div id="slider">
+            <h1 id="thumb">Нейроэзотерика</h1>
+          </div>
+
+          <div class="inner">
+            <div id="transit">
+              <svg class="down-icon"><use xlink:href="#icon-down"></use></svg>
+              <div class="mini-badge">листай вниз</div>
+              <svg class="down-icon"><use xlink:href="#icon-down"></use></svg>
+            </div>
+            
+            <h1 id="title">
+              <p>Раскрой свой</p>
+              <p>энергетический потенциал</p>
+              <p>вместе с нашим</p>
+              <p>приложением</p>
+            </h1>
+
+            <div class="mini-badge">яркая жизнь уже доступна для скачивания</div>
+          </div>
+        </section>
+
+        <section id="sec-functions" class="section fw no-header">
+          <div class="bg-circle" style="--radius-index: 1;"></div>
+          <div class="bg-circle" style="--radius-index: 2;"></div>
+          <div class="bg-circle" style="--radius-index: 3;"></div>
+          <div class="bg-circle" style="--radius-index: 4;"></div>
+          <div class="bg-circle" style="--radius-index: 5;"></div>
+
+          <div id="phone-viewer">
+            <video id="video" src="/res/preview-video.mp4" controls>
+              Ваш браузер не поддерживает данное видео!
+            </video>
+          </div>
+        </section>
+
+        <section id="sec-makemoney" class="section fw">
+          <div id="left-side">
+            <svg id="down-icon"><use xlink:href="#icon-down"></use></svg>
+
+            <h1 id="title">
+              <p>Зарабатывай вместе</p>
+              <p>с приложением</p>
+              <p>Нейроэзотерика</p>
+            </h1>
+
+            <h2 id="subtitle">
+              <p>Мы подготовили для вас реферальную программу,</p>
+              <p>которая позволит зарабатывать и получать бонусы</p>
+              <p>Все что нужно - просто пригласить друга по уникальному реферальному коду!</p>
+            </h2>
+
+            <button id="download" class="download-btn">Скачать</button>
+
+          </div>
+          
+          <div id="right-side">
+            <div id="title">
+              <h1>Н</h1>
+              <h1>Нейроэзотерика</h1>
+            </div>
+
+            <img id="preview" src="/res/referal-preview.png">
+          </div>
+        </section>
+
+        <section id="sec-choices" class="section">
+          <h1 id="title">
+            <p>огромный выбор</p>
+            <p>специалистов</p>
+          </h1>
+
+          <div id="cards">
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card1.jpg">
+              <span id="title"><p>Работа с родом</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card2.jpg">
+              <span id="title"><p>Денежные практики</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card3.jpg">
+              <span id="title"><p>Работа с детством</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card4.jpg">
+              <span id="title"><p>Отношения</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card5.jpg">
+              <span id="title"><p>Аудио практики</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card6.jpg">
+              <span id="title"><p>Авторские карты</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card7.jpg">
+              <span id="title"><p>Духовные практики</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card8.jpg">
+              <span id="title"><p>Матрица судьбы</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card9.jpg">
+              <span id="title"><p>Астрология</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card10.jpg">
+              <span id="title"><p>Чистка энергиями</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card11.jpg">
+              <span id="title"><p>Психика</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card12.jpg">
+              <span id="title"><p>Разборы</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card13.jpg">
+              <span id="title"><p>Чакры</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card14.jpg">
+              <span id="title"><p>Консультации</p><p>психолога</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card15.jpg">
+              <span id="title"><p>Консультации</p><p>энергопрактиков</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card16.jpg">
+              <span id="title"><p>Шаманские сеансы</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card17.jpg">
+              <span id="title"><p>Школа целителей</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card17.jpg">
+              <span id="title"><p>Академия целителей</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card18.jpg">
+              <span id="title"><p>Клуб</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card19.jpg">
+              <span id="title"><p>Работа с телом</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card20.jpg">
+              <span id="title"><p>Кинезиотерапия</p></span>
+            </div>
+            
+            <div class="item">
+              <img id="icon" src="/res/choices-cards/card21.jpg">
+              <span id="title"><p>Кинерджетика</p></span>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-download" class="section fw">
+          <img id="sphere" src="/res/sphere.jpg">
+
+          <div id="links">
+            <img src="/res/logo.svg" id="logo">
+
+            <h1 id="title">Нейроэзотерика</h1>
+            <h2 id="subtitle">Проверенные эксперты у вас в телефоне</h2>
+
+            <a href="#">
+              <img class="download-badge" src="/res/google-play.svg">
+            </a>
+            <a href="#">
+              <img class="download-badge" src="/res/app-store.svg">
+            </a>
+          </div>
+        </section>
+
+        <section id="sec-feedback" class="section">
+          <h1 id="mini-badge">о нас говорят</h1>
+
+          <div class="inner">
+            <img src="/res/logo.svg" id="logo">
+
+            <div class="window">
+              <div id="brackets">
+                <img class="icon" src="/res/bracket.svg">
+                <img class="icon" src="/res/bracket.svg">
+              </div>
+
+              <article id="text">
+                “Лучшее приложение, которым я когда либо пользовалась.”
+              </article>
+
+              <div id="author">
+                <span id="name">Ангелина Старовойтова</span>
+                <!-- <img id="avatar" src="/res/person.png"> -->
+              </div>
+            </div>
+
+            <a id="view-feedback" href="#">Читать все отзывы</a>
+
+            <img src="/res/logo.svg" id="logo-reverse">
+          </div>
+        </section>
+      </section>
+
+      <footer id="footer" class="section wrap">
+        <div id="bg-shape"></div>
+        <div class="inner">
+          <div id="title">
+            <p>Мы рады что вы заинтересовались</p>
+            <p>нашим приложением</p>
+          </div>
+          <div id="subtitle">
+            <p>Мы работаем с подсознанием, энергиями, ‌находим и исцеляем десятки тысяч людей по</p>
+            <p>всему миру вот уже на протяжении 10 лет.</p>
+          </div>
+          <div id="socials">
+            <a href="#">
+              <img class="item" src="/res/socials/telegram.svg">
+            </a>
+            <a href="#">
+              <img class="item" src="/res/socials/vk.svg">
+            </a>
+            <a href="#">
+              <img class="item" src="/res/socials/instagram.svg">
+            </a>
+            <a href="#">
+              <img class="item" src="/res/socials/youtube.svg">
+            </a>
+          </div>
+        </div>
+      </footer>
+    </section>
+    
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"></script>
+    <script type="module" src="/landing"></script>
+    <svg id="icons-container" style="display: none;">
+      <symbol id="icon-down" viewBox="0 0 10 17">
+        <path fill="none" d="M1 12L4.29289 15.2929C4.68342 15.6834 5.31658 15.6834 5.70711 15.2929L9 12" stroke="#252525" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M5 15L5 1" stroke="#252525" stroke-width="1.5" stroke-linecap="round"/>
+      </symbol>
+    </svg>
+  </body>
+</html>

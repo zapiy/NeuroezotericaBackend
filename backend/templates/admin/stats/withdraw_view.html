@@ -1,0 +1,33 @@
+{% extends "../base.html" %} {% block content %}
+<section id="content">
+  {% if withdraw %}
+  <h1 class="mh">Запросы выплат</h1>
+  <div class="table-overflow">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ФИО</th>
+          <th>Роль</th>
+          <th>Кол-во</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in withdraw %} {% with user=item.user %}
+        <tr a-linked="{% url 'admin:user' user.uuid %}?tab=withdraw">
+          <th>{{ user.first_name }} {{ user.last_name|default_if_none:"" }}</th>
+          {% if user.role == "client" %}
+          <td>Клиент</td>
+          {% elif user.role == "expert" %}
+          <td class="cancel">Эксперт</td>
+          {% endif %}
+          <td class="gold">{{ user.balance }} ₽</td>
+        </tr>
+        {% endwith %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <h1 class="mh">Запросы выплат отсутствуют</h1>
+  {% endif %}
+</section>
+{% endblock %}

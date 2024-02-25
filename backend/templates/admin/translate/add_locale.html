@@ -1,0 +1,26 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    <section id="content">
+        <h1 class="mh">Выберите языковой код для создания перевода</h1>
+
+        <div class="table-overflow">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Код</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for code in locales %}
+                    <tr a-linked = "{% url 'admin:translate' code %}?tab=settings">
+                        <td><svg class="flag"><use xlink:href="/static/res/flags.svg#{{ code }}"></use></svg></td>
+                        <th>{{ code }}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </section>
+{% endblock %}

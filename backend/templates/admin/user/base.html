@@ -1,0 +1,102 @@
+<!-- prettier-ignore -->
+{% extends "../base.html" %} {% block content %}
+<section id="content">
+  <div id="profile-view">
+    {% if user.avatar_uuid %}
+    <img id="avatar" src="/media/avatar/{{ user.avatar_uuid }}.jpg" />
+    {% else %}
+    <img id="avatar" src="/static/media_defaults/avatar.jpg" />
+    {% endif %}
+    <div id="info">
+      <h1 class="mh">
+        {{ user.first_name }} {{ user.last_name|default_if_none:"" }}
+      </h1>
+      {% if user.status == "blocked" %}
+      <div class="icon-line cancel">
+        <span class="material-symbols-outlined">block</span>
+        <span class="data">Заблокирован</span>
+      </div>
+      {% elif user.status == "delete" %}
+      <div class="icon-line cancel">
+        <span class="material-symbols-outlined">delete</span>
+        <span class="data">Удален</span>
+      </div>
+      {% endif %} {% if user.email %}
+      <div class="icon-line">
+        <span class="material-symbols-outlined">email</span>
+        <span class="data">{{ user.email }}</span>
+      </div>
+      {% endif %}
+
+      <div class="icon-line">
+        <span class="material-symbols-outlined">phone</span>
+        <span class="data">+{{ user.phone }}</span>
+      </div>
+
+      {% if user.role == "client" %}
+      <div class="icon-line">
+        <span class="material-symbols-outlined">grid_view</span>
+        <span class="data">Клиент</span>
+      </div>
+
+      {% if user.client_extra.referred_by %} 
+        {% with refer=user.client_extra.referred_by.by.user %}
+          <a class="icon-line primary" href="{% url 'admin:user' refer.uuid %}">
+            <span class="material-symbols-outlined">link</span>
+            <span class="data"
+              >{{ refer.first_name }} {{ refer.last_name|default_if_none:"" }}</span
+            >
+          </a>
+        {% endwith %}
+      {% endif %}
+
+      <div class="icon-line">
+        <span class="material-symbols-outlined">open_in_new</span>
+        <span class="data">{{ user.referals_count }}</span>
+      </div>
+
+      {% elif user.role == "expert" %}
+      <div class="icon-line cancel">
+        <span class="material-symbols-outlined">grid_view</span>
+        <span class="data">Эксперт</span>
+      </div>
+      {% endif %}
+
+      <div class="icon-line gold">
+        <span class="material-symbols-outlined">credit_card</span>
+        <span class="data">{{ user.balance }} ₽</span>
+      </div>
+
+      {% if notifications %}
+      <div class="notification-badge">
+        <span id="icon" class="material-symbols-outlined">exclamation</span>
+        <ul class="data">
+          {% for item in notifications %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if user.status == "blocked" %}
+  <form method="POSTM" action="{% url 'admin:user_block' user.uuid %}">
+    <button class="primary mw confirm" type="submit">Разблокировать</button>
+  </form>
+  {% elif user.status == "active" %}
+  <div class="tab-navigation">
+    <ul class="inner">
+      {% for key, value in tabs.all %} {% if key == tabs.current %}
+      <li class="current">{{ value }}</li>
+      {% else %}
+      <li>
+        <a href="{% url 'admin:user' user.uuid %}?tab={{ key }}">{{ value }}</a>
+      </li>
+      {% endif %} {% endfor %}
+    </ul>
+  </div>
+
+  {% block tab_content %}{% endblock %} {% endif %}
+</section>
+{% endblock %}

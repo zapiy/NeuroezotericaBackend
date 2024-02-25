@@ -1,0 +1,565 @@
+@import "../mixins.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+#app{
+    --header-height: 60rem;
+    user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    & > #header{
+        z-index: 10;
+        position: fixed;
+        width: 100%; height: var(--header-height);
+        padding: 0 40rem;
+        background-color: var(--background);
+        overflow: visible;
+    
+        @include d-flex(h, $gap: 20rem);
+        #switch{ @include d-flex(h, $gap: 20rem); }
+    
+        #logo{
+            @include adaptive((
+                width: (
+                    small 40rem,
+                    middle wide 80rem,
+                    tablet every-x 60rem,
+                ),
+            ));
+        }
+    
+        #burger{
+            cursor: pointer;
+            display: block;
+            position: relative;
+            overflow: visible;
+    
+            &::before{ top: -10rem; }
+            &::after{ bottom: -10rem; }
+            &::before, &::after{
+                content: '';
+                transition: top .2s, bottom .2s, transform .2s;
+                transform-origin: center;
+    
+                position: absolute;
+                left: 0;
+            }
+        }
+        #burger, #burger::before, #burger::after{
+            width: 40rem; height: 4rem;
+            border-radius: 4rem;
+            background-color: var(--foreground) !important;
+        }
+    
+        &.show-nav{
+            border-bottom: 2rem solid var(--foreground);
+            #burger{
+                background-color: transparent !important;
+        
+                &::before{
+                    top: 0;
+                    transform: rotate(45deg);
+                }
+                &::after{
+                    bottom: 0;
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+        &:not(.show-nav) #navigator{
+            display: none;
+        }
+
+        & > #navigator{
+            z-index: 99;
+            position: absolute;
+            overflow: visible;
+            top: calc(100% + 2rem); left: 0;
+        
+            width: 100vw;
+            height: calc(100vh - var(--header-height) - 2rem) !important;
+            background-color: rgba(0, 0, 0, 0.3);
+
+            & > .inner{
+                width: 20%;
+
+                font-size: 25rem;
+                @include d-flex(v w c, $gap: 10rem);
+                background-color: var(--background);
+                border-right: 2rem solid var(--foreground);
+                padding: 10rem;
+
+                @include adaptive((
+                    width: (
+                        ultra 25%,
+                        extra wide 30%,
+                        tablet 45%,
+                        small middle 100%
+                    ),
+                ));
+            
+                @include respond-to(small middle){
+                    border: 0;
+                    align-items: center;
+                }
+
+                & > .item{
+                    text-transform: uppercase;
+                    cursor: pointer;
+            
+                    &::after{
+                        content: "";
+            
+                        transition: width .2s, left .2s;
+                        width: 0; left: 50%;
+                    }
+            
+                    &:hover, &.selected{
+                        position: relative;
+            
+                        &::after{
+                            content: "";
+            
+                            position: absolute;
+                            bottom: 1rem; left: 0;
+                            width: 100%; height: 1rem;
+                            background-color: var(--foreground) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    & > #content{
+        position: relative;
+        top: var(--header-height);
+        width: 98%; min-height: 100vh;
+        height: fit-content;
+        margin: 0 auto;
+    
+        @include adaptive((
+            padding: (
+                (20rem 2%), esmall (10rem 5rem)
+            ),
+            width: (
+                tablet 90%,
+                wide 85%,
+                extra 80%,
+                ultra 70%,
+            )
+        ));
+    }
+}
+
+.flag{
+    width: 50rem;
+    height: 25rem;
+    object-fit: cover;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+
+  font-size: 2em;
+}
+
+.mh{
+    font-size: 25rem;
+    padding: 5rem 10rem 10rem;
+}
+
+.search-bar{
+    @include d-flex(h);
+    padding: 5rem;
+    font-size: 20rem;
+    gap: 10rem;
+    width: 100%;
+
+    & > input{
+        width: 100%;
+        padding: 10rem;
+    }
+}
+
+.table{
+    position: relative;
+    width: 100%;
+    display: table;
+    text-indent: 0;
+    border-collapse: collapse;
+    text-align: left;
+    user-select: none;
+    border-radius: 15rem;
+    margin: 10rem 0 20rem;
+
+    background-color: var(--primary-color);
+
+    &-overflow{
+        width: 100%;
+        overflow: auto;
+        margin: 10rem 0 20rem;
+
+        & > .table{
+            width: fit-content;
+            min-width: 100%;
+        }
+    }
+
+    &:not(.fw){
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    & > thead{
+        font-size: 18rem;
+        line-height: 15rem;
+        text-transform: uppercase;
+
+        color: #fff;
+    }
+
+    th, td{
+        padding: 10rem 15rem;
+    }
+    tbody tr{
+        &:not(:last-of-type){
+            border-bottom: 1rem solid #fff;
+        }
+        background-color: var(--primary-lite-color);
+        font-size: 16rem;
+
+        &.expand th{
+            text-align: center;
+            
+            & > .inner{
+                padding: 0;
+                @include d-flex(h);
+                gap: 10rem;
+            }
+        }
+        
+        th{
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        td{
+            color: rgba(255, 255, 255, 0.8);
+
+            &.gold{ color: var(--gold-color); }
+            &.blue{ color: var(--blue-color); }
+            &.confirm{ color: var(--confirm-color); }
+            &.cancel{ color: var(--cancel-color); }
+        }
+        
+        &:hover{
+            opacity: .8;
+        }
+    }
+}
+
+.paginator{
+    width: fit-content;
+    // height: 80rem;
+    margin: 30rem auto;
+    overflow: visible;
+    @include d-flex(h);
+    gap: 10rem;
+
+    & > .item{
+        background-color: var(--primary-lite-color);
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 10rem;
+
+        padding: 10rem 20rem;
+
+        &:hover{ opacity: 0.8; }
+        &.current{
+            background-color: var(--primary-color);
+        }
+    }
+}
+
+.image-input{
+    .preview-wrapper{
+        position: relative;
+        min-width: 15vw;
+        max-width: 20vw;
+
+        .preview{
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .icon{
+            position: absolute;
+            top: 5rem; right: 5rem;
+
+            padding: 5rem;
+            border-radius: 50%;
+            background-color: var(--background);
+            border: 2rem solid var(--foreground);
+        }
+    }
+}
+
+input, button, label{
+    &.fw{ width: 100%; }
+    &.mw{ width: 50%; }
+}
+
+.just-input{
+    @include d-flex(v w, $gap: 5rem);
+    margin: 10rem 0;
+
+    & > input, & > textarea, & > select, & > .label{
+        padding: 10rem;
+        border-bottom: 2rem solid var(--primary-color);
+    }
+
+    & > input, & > .label{
+        border: 2rem solid var(--primary-color);
+        border-radius: 10rem;
+
+        &:focus{
+            background-color: var(--primary-lite-color);
+
+            &::placeholder{
+                display: none;
+            }
+        }
+    }
+
+    & > textarea{
+        padding: 10rem;
+
+        @include adaptive((
+            width: ("50% !important", small middle "100% !important"),
+        ));
+        min-height: 2.5em;
+        max-height: 50vh;
+        overflow-y: scroll;
+    }
+}
+
+button{
+    --btn-color: var(--primary-color);
+    opacity: .9;
+    margin: 10rem 0;
+    padding: 10rem;
+    background-color: var(--btn-color);
+    border-radius: 10rem;
+
+    &.confirm{ --btn-color: var(--confirm-color); }
+    &.cancel{ --btn-color: var(--cancel-color); }
+    &.blue{ --btn-color: var(--blue-color); }
+    &.gold{ --btn-color: var(--gold-color); }
+
+    &.outline{
+        background-color: transparent;
+        border: 2rem solid var(--btn-color);
+    }
+
+    &:hover{
+        opacity: .95;
+    }
+    &:active{
+        opacity: 1;
+        background-color: var(--btn-color) !important;
+    }
+}
+
+#profile-view{
+    @include d-flex(h w);
+    padding: 20rem 0;
+    @include adaptive((
+        gap: (
+            30rem,
+            small middle 10rem,
+        )
+    ));
+
+    #avatar{
+        @include adaptive((
+            min-width: (
+                10vw,
+                small middle 20vw
+            ),
+            max-width: (
+                20vw,
+                small middle 30vw
+            )
+        ));
+    }
+    #info{
+        @include d-flex(v w, $gap: 5rem);
+    }
+}
+
+.notification-badge{
+    --badge-color: var(--gold-color);
+    @include adaptive((
+        font-size: (
+            20rem,
+            small middle 15rem,
+        )
+    ));
+    @include d-flex(h);
+    padding: 5rem;
+    padding-right: 20rem;
+
+    border: 2rem solid var(--badge-color);
+    border-radius: 20rem;
+
+    #icon{
+        color: var(--badge-color);
+        font-size: 3em;
+    }
+
+    .data{
+        & > li{
+            padding: 2rem 0;
+            list-style: none;
+
+            &:not(:only-child)::before {
+                content: "\2022";
+                width: 1em; height: 1em;
+                color: var(--badge-color);
+                font-weight: bold;
+                display: inline-block;
+            }
+        }
+    }
+
+    &.success{
+        --badge-color: var(--confirm-color);
+    }
+    &.error{
+        --badge-color: var(--cancel-color);
+    }
+}
+
+.icon-line{
+    @include d-flex(h, $gap: 5rem);
+    font-size: 15rem;
+    font-weight: bold;
+
+    &.big{ font-size: 20rem; }
+    &.gold{ color: var(--gold-color); }
+    &.primary{ color: var(--primary-color); }
+    &.confirm{ color: var(--confirm-color); }
+    &.cancel{ color: var(--cancel-color); }
+    &.blue{ color: var(--blue-color); }
+}
+
+.card{
+    width: fit-content; height: fit-content;
+    margin: 20rem 0;
+    padding: 20rem;
+    border-radius: 20rem;
+    border: 2rem solid var(--primary-color);
+}
+
+.tab-navigation{
+    display: block;
+    width: 100%;
+    margin: 10rem 0;
+    overflow-x: scroll;
+    font-size: 18rem;
+
+    & > .inner{
+        width: fit-content;
+        @include d-flex(h);
+
+        & > li{
+            display: block;
+            text-align: center;
+            width: fit-content;
+            border-bottom: 2rem solid var(--primary-lite-color);
+            white-space: nowrap;
+            list-style: none;
+
+            @include adaptive((
+                padding: (
+                    _ (8rem 25rem),
+                    small middle (4rem 10rem)
+                )
+            ));
+    
+            &.action{
+                @include d-flex(h);
+                border-bottom: 2rem solid var(--gold-color);
+                a{
+                    color: var(--gold-color);
+                }
+            }
+            &.current{
+                border-bottom: 4rem solid var(--primary-color);
+            }
+        }
+    }
+    
+}
+
+[a-linked]{
+    cursor: pointer;
+}
+
+.modal{
+    background-color: var(--background);
+    border: 2rem solid var(--foreground);
+    border-radius: 15rem;
+
+    @include adaptive((
+        width: (_ 80%, tablet 90%, small middle 95%),
+    ));
+    
+    & > #header{
+        border-bottom: 2rem solid var(--foreground);
+        padding: 10rem 20rem;
+        @include d-flex(h sb, $gap: 50rem);
+
+        & > #side{
+            @include d-flex(h sb, $gap: 20rem);
+
+            & > #logo{
+                width: 60rem;
+            }
+
+            & > #title{
+                font-size: 20rem;
+                font-weight: bold;
+            }
+        }
+
+        & > #close{
+            cursor: pointer;
+        }
+    }
+
+    & > #content{
+        display: block;
+        margin: 10rem 20rem;
+    }
+
+    &-overflow{
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        width: 100dvw; height: 100dvh;
+        z-index: 10;
+    
+        background-color: rgba(0,0,0,0.3);
+        @include d-flex(c);
+
+        &.hidden{ display: none; }
+    }
+}
+

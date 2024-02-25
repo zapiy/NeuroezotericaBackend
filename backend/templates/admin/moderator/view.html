@@ -1,0 +1,32 @@
+{% extends "../base.html" %}
+
+{% block content %}
+  <section id="content">
+      <h1 class="mh">Модераторы</h1>
+
+      <div class="table-overflow">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ключ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in moderators %}
+                  <tr a-linked = "{% url 'admin:moderator' item.key_name %}">
+                      <th>{{ item.key_name }}</th>
+                  </tr>
+                {% endfor %}
+                <tr class="expand" a-linked="{% url 'admin:moderator' 'new' %}">
+                  <th colspan="100%">
+                    <div class="inner">
+                      <span class="material-symbols-outlined">add</span>
+                      Добавить
+                    </div>
+                  </th>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+  </section>
+{% endblock %}

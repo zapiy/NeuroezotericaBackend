@@ -1,0 +1,53 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    <section id="content">
+        {% if item and item.uuid is not None %}
+            <h1 class="mh">{{ item.title }}</h1>
+        {% else %}
+            <h1 class="mh">Размещение новости</h1>
+        {% endif %}
+
+        <form method="POSTM" enctype="multipart/form-data">
+            <div class="image-input">
+                <div class="preview-wrapper">
+                    {% if item.wallpaper_uuid %}
+                        <img class="preview" src="/media/news_wallpaper/{{ item.wallpaper_uuid }}.jpg" />
+                    {% else %}
+                        <img class="preview" src="/static/media_defaults/news_wallpaper.jpg" />
+                    {% endif %}
+                    
+                    <span class="icon material-symbols-outlined">edit</span>
+                </div>
+                <input type="file" name="wallpaper" accept="image/*" 
+                    class="form-control" hidden>
+            </div>
+    
+            <div class="just-input mw">
+                <label>Заголовок</label>
+                <input type="text" name="title" class="fw" value="{{ item.title|default_if_none:'' }}" required>
+            </div>
+    
+            <div class="just-input mw">
+                <label>Текст</label>
+                <textarea rows="6" name="content" placeholder="Напишите текст для новости..." required>{{ item.content|default_if_none:"" }}</textarea>
+            </div>
+            
+            {% if item and item.uuid is not None %}
+                <button class="primary mw" type="submit">Сохранить</button>
+            {% else %}
+                <button class="primary mw" type="submit">Добавить</button>
+            {% endif %}
+        </form>
+
+        {% if item and item.uuid is not None %}
+            <form method="DELETE">
+                <button class="cancel outline mw" type="submit">Удалить</button>
+            </form>
+        {% endif %}
+
+        <button class="cancel mw" a-linked="{% url 'admin:news' %}">Назад</button>
+
+    </section>
+{% endblock %}
+

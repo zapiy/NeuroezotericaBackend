@@ -1,0 +1,57 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    <section id="content">
+        <h1 class="mh">Модератор приложения</h1>
+
+        <form method="POSTM">
+            <div class="just-input mw">
+                <label>Ключ</label>
+                <input type="text" name="key_name" class="fw" required value="{{ item.key_name|default_if_none:'' }}">
+            </div>
+
+            {% if item and item.uuid is not None %}
+                <button class="confirm fw" type="submit">Сохранить</button>
+            {% else %}
+                <button class="primary mw" type="submit">Добавить</button>
+            {% endif %}
+        </form>
+
+        {% if item and item.uuid is not None %}
+            <button id="share-link" class="primary fw">Отправить ссылку авторизации</button>
+            <button id="copy-link" class="gold fw">Скопировать ссылку авторизации</button>
+
+            <form method="DELETE">
+                <button class="cancel outline mw" type="submit">Удалить</button>
+            </form>
+        {% endif %}
+
+        <button class="cancel mw" a-linked="{% url 'admin:moderators' %}">Назад</button>
+    </section>
+{% endblock %}
+
+{% block script %}
+    {% if item and item.uuid is not None %}
+        <script>
+            $(function(){
+                const AUTH_LINK = location.origin + "/admin/@/" + "{{ item.auth_token }}";
+
+                $("#copy-link").on("click", ev => {
+                    navigator.clipboard.writeText(AUTH_LINK);
+                    alert("Ссылка скопирована. Отправьте ее модератору чтобы он мог авторизоваться!");
+                });
+
+                $("#share-link").on("click", ev => {
+                    navigator
+                        .share({
+                            title: "Neuroezoterica",
+                            text: "Neuroeroterica moderator link!",
+                            url: AUTH_LINK,
+                        })
+                        .then(() => console.log('Successful share!'))
+                        .catch(err => console.error(err));
+                });
+            })
+        </script>
+    {% endif %}
+{% endblock %}

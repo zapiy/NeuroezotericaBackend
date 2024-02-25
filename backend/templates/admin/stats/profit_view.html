@@ -1,0 +1,74 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    <section id="content">
+
+        {% if stat %}
+            <h1 class="mh">Общая статистика по сервису</h1>
+            <div class="table-overflow">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Всего выведено:</th>
+                            <td>{{ stat.total }} ₽ ({{ stat.withdraw_count }} выводов)</td>
+                        </tr>
+                        <tr>
+                            <th>Общий заработок сервиса:</th>
+                            <td>{{ stat.profit }} ₽</td>
+                        </tr>
+                        <tr>
+                            <th>Заработок сервиса за текущий месяц:</th>
+                            <td>{{ stat.month_profit }} ₽</td>
+                        </tr>
+                        <tr>
+                            <th>Экспертов в сервисе:</th>
+                            <td>{{ stat.expert_count }} чел</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        {% if profit %}
+            <h1 class="mh">Выплаты экспертам</h1>
+
+            <div class="table-overflow">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Эксперт</th>
+                            <th>Сумма</th>
+                            <th>Заработок сервиса</th>
+                            <th>Дата запроса</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in profit %}
+                            <tr a-linked = "{% url 'admin:user' item.user.uuid %}?tab=withdraw_history">
+                                <th>{{ item.user.first_name }} {{ item.user.last_name|default_if_none:"" }}</th>
+                                <td>{{ item.count }} ₽</td>
+                                <td class="gold">{{ item.service_profit }} ₽</td>
+                                <td>{{ item.created_at }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% if paginator and paginator.has %}
+                <div class="paginator">
+                    {% for item in paginator.range %}
+                        {% if item == paginator.current or item == "…" %}
+                            <span class="item current">{{ item }}</span>
+                        {% else %}
+                            <span class="item" 
+                                a-linked="{% url 'admin:profit_stats' %}?p={{ item }}">{{ item }}</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% else %}
+            <h1 class="mh">Выплаты еще не проводились</h1>
+        {% endif %}
+    </section>
+{% endblock %}

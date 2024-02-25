@@ -1,0 +1,33 @@
+{% extends "../base.html" %}
+
+{% block content %}
+  <section id="content">
+    <svg class="flag"><use xlink:href="/static/res/flags.svg#{{ locale.code }}"></use></svg>
+    <h1 class="mh">
+      Перевод для {{ locale.code }}
+      {% if locale.preview_name %}({{ locale.preview_name }}){% endif %}
+    </h1>
+    <h1 class="mh">Текст {{ text.code }}</h1>
+
+    <div class="just-input">
+        <label>Исходный текст</label>
+        <label class="label fw">{{ text.base }}</label>
+    </div>
+
+    <form method="POSTM">
+        <div class="just-input">
+            <label>Перевод</label>
+            <textarea rows="6" name="translate" class="fw" placeholder="Напишите текст перевода..." required>{% if text.value %}{{ text.value }}{% endif %}</textarea>
+        </div>
+
+        <button class="confirm fw" type="submit" action="save">Сохранить</button>
+        {% if text.has_next %}
+          <button class="primary fw" type="submit" action="next">Сохранить и продолжить</button>
+        {% endif %}
+    </form>
+
+    <button class="cancel outline fw"
+      a-linked = "{% url 'admin:translate' locale.code %}?tab=translate">Выйти</button>
+    
+  </section>
+{% endblock %}

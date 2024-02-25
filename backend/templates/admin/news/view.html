@@ -1,0 +1,34 @@
+{% extends "../base.html" %}
+
+{% block content %}
+  <section id="content">
+      <h1 class="mh">Новости</h1>
+
+      <div class="table-overflow">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Дата размещения</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in news %}
+                  <tr a-linked = "{% url 'admin:news_item' item.uuid %}">
+                      <th>{{ item.title }}</th>
+                      <td>{{ item.created_at }}</td>
+                  </tr>
+                {% endfor %}
+                <tr class="expand" a-linked = "{% url 'admin:news_item' 'new' %}">
+                  <th colspan="100%">
+                    <div class="inner">
+                      <span class="material-symbols-outlined">add</span>
+                      Разместить
+                    </div>
+                  </th>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+  </section>
+{% endblock %}

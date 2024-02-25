@@ -1,0 +1,75 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    <section id="content">
+        <h1 class="mh">Пользователи</h1>
+
+        {% if users or query %}
+            <form method="GET">
+                <div class="search-bar">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" name="q" placeholder="Поиск пользователя" value="{{ query }}"/>
+                </div>
+            </form>
+        {% endif %}
+
+
+        {% if users %}
+            <div class="table-overflow">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ФИО</th>
+                            <th>Телефон</th>
+                            <th>Роль</th>
+                            <th>Кол-во рефералов</th>
+                            <th>Дата регистрации</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in users %}
+                            <tr a-linked = "{% url 'admin:user' item.uuid %}">
+                                <th>{{ item.first_name }} {{ item.last_name|default_if_none:"" }}</th>
+                                <th>+{{ item.phone }}</th>
+
+                                
+                                {% if item.status == "blocked" %}
+                                    <td class="cancel" colspan="2" align="center">Заблокирован</td>
+                                {% elif item.status == "delete" %}
+                                    <td class="cancel" colspan="2" align="center">Удален</td>
+                                {% else %}
+                                    {% if item.role == "client" %}
+                                        <td>Клиент</td>
+                                    {% elif item.role == "expert" %}
+                                        <td class="cancel" colspan="2">Эксперт</td>
+                                    {% endif %}
+
+                                    {% if item.role == "client" %}
+                                        <td>{{ item.relerals_count }}</td>
+                                    {% endif %}
+                                {% endif %}
+
+                                <td>{{ item.created_at }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% if paginator and paginator.has %}
+                <div class="paginator">
+                    {% for item in paginator.range %}
+                        {% if item == paginator.current or item == "…" %}
+                            <span class="item current">{{ item }}</span>
+                        {% else %}
+                            <span class="item" 
+                                a-linked="{% url 'admin:users' %}?p={{ item }}">{{ item }}</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% else %}
+            <h1 class="mh">Пользователи отсутствуют</h1>
+        {% endif %}
+    </section>
+{% endblock %}

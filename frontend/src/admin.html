@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/res/logo.svg" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <title>Neuroezoterica Admin</title>
+  </head>
+  <body>
+    <section id="app">
+      <header id="header">
+        <div id="switch">
+          <img src="/res/logo.svg" id="logo">
+          <div id="burger"></div>
+        </div>
+
+        <nav id="navigator">
+          <div class="inner">
+            <a class="item selected" href="#">Выплаты</a>
+            <a class="item" href="#">Пользователи</a>
+            <a class="item" href="#">Новости</a>
+            <a class="item" href="#">Категории услуг</a>
+            <a class="item" href="#">Перевод приложения</a>
+          </div>
+        </nav>
+      </header>
+
+      <!-- <section id="content"> Список для перевода
+        <div class="table-overflow">
+          <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Код</th>
+                    <th>Отображаемое название</th>
+                    <th>Прогресс перевода</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>
+                    <svg class="flag"><use xlink:href="/res/flags.svg#ru"></use></svg>
+                  </td>
+                  <th>RU</th>
+                  <th>Русский</th>
+                  <td>20/30</td>
+                  <td class="confirm">Доступен</td>
+                </tr>
+            </tbody>
+            <tr class="expand" a-linked="#">
+              <th colspan="100%">
+                <div class="inner">
+                  <span class="material-symbols-outlined">add</span>
+                  Добавить перевод
+                </div>
+              </th>
+            </tr>
+          </table>
+        </div>
+      </section> -->
+
+      <!-- <section id="content"> Выбор кода страны
+        <h1 class="mh">Выберите код страны для создания перевода</h1>
+        <div class="table-overflow">
+          <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Код</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>
+                    <svg class="flag"><use xlink:href="/res/flags.svg#ru"></use></svg>
+                  </td>
+                  <th>RU</th>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </section> -->
+
+      <section id="content">
+        <svg class="flag"><use xlink:href="/res/flags.svg#ru"></use></svg>
+        <h1 class="mh">Перевод для RU</h1>
+        <h1 class="mh">Название: Россия</h1>
+
+        <div class="just-input">
+          <label>Исходный текст</label>
+          <label class="label fw">Hello World</label>
+        </div>
+
+        <form method="POSTM" enctype="multipart/form-data">
+          <div class="image-input">
+            <div class="preview-wrapper">
+                <img class="preview" src="/static/media_defaults/news_wallpaper.jpg" />
+                <span class="icon material-symbols-outlined">edit</span>
+            </div>
+            <input type="file" name="wallpaper" accept="image/*" 
+                class="form-control" hidden>
+          </div>
+
+          <div class="just-input">
+              <label>Перевод</label>
+              <input type="text" class="fw" name="translate" value="Перевод" required>
+          </div>
+
+          <button class="primary mw" type="submit" action="save">Сохранить</button>
+          <button class="confirm outline mw" type="submit" action="next">Сохранить и продолжить</button>
+        </form>
+
+        <button class="cancel outline mw">Выйти</button>
+      </section>
+
+    <div class="modal-overflow hidden"></div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"></script>
+    
+    <script type="module" src="/admin"></script>
+  </body>
+</html>

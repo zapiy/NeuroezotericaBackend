@@ -1,0 +1,28 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    <section id="content">
+        <h1 class="mh">Категория услуги</h1>
+
+        <form method="POSTM">
+            <div class="just-input mw">
+                <label>Название</label>
+                <input type="text" name="name" class="fw" required value="{{ item.name|default_if_none:'' }}">
+            </div>
+
+            {% if item and item.uuid is not None %}
+                <button class="primary mw" type="submit">Сохранить</button>
+            {% else %}
+                <button class="primary mw" type="submit">Добавить</button>
+            {% endif %}
+        </form>
+
+        <!-- {% if item and item.uuid is not None %}
+            <form method="DELETE">
+                <button class="cancel outline mw" type="submit">Удалить</button>
+            </form>
+        {% endif %} -->
+
+        <button class="cancel mw" a-linked="{% url 'admin:categories' %}">Назад</button>
+    </section>
+{% endblock %}

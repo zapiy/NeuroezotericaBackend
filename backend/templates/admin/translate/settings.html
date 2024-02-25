@@ -1,0 +1,16 @@
+{% extends "./base.html" %}
+
+{% block tab_content %}
+    <form method="POSTM" action="{% url 'admin:translate_settings' locale.code %}">
+        <div class="just-input">
+            <label>Отображаемое название</label>
+            <input type="text" class="fw" name="preview_name" value="{{ locale.preview_name }}" required>
+        </div>
+
+        <button class="primary mw" type="submit">Сохранить</button>
+    </form>
+
+    <form method="DELETE" action="{% url 'admin:translate' locale.code %}">
+        <button class="cancel outline mw" type="submit">Удалить перевод</button>
+    </form>
+{% endblock %}

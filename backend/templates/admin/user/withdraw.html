@@ -1,0 +1,45 @@
+{% extends "./base.html" %}
+
+{% block tab_content %}
+    <div class="card">
+        <div class="icon-line">
+            <span class="material-symbols-outlined">account_balance</span>
+            <span class="data">{{ params.card.bank }}</span>
+        </div>
+
+        <div class="icon-line">
+            <span class="material-symbols-outlined">credit_card</span>
+            <span class="data">{{ params.card.card }}</span>
+        </div>
+
+        <div class="icon-line">
+            <span class="material-symbols-outlined">person</span>
+            <span class="data">{{ params.card.name }}</span>
+        </div>
+    </div>
+
+    <div class="icon-line">
+        <span class="material-symbols-outlined">payments</span>
+        <span class="data">Текущий баланс: {{ params.balance }} ₽</span>
+    </div>
+
+    {% if params.comission %}
+        <div class="icon-line">
+            <span class="material-symbols-outlined">price_change</span>
+            <span class="data">Комиссия сервиса: {{ params.comission }}%</span>
+        </div>
+    {% endif %}
+
+    <div class="icon-line confirm big">
+        <span class="material-symbols-outlined">payments</span>
+        <span class="data">Итого: {{ params.total }} ₽</span>
+    </div>
+
+    <form class="just-input" method="POSTM" action="{% url 'admin:user_withdrawal' user.uuid %}">
+        <button class="primary mw" type="submit">Подтвердить вывод</button>
+    </form>
+
+    <form class="just-input" method="DELETE" action="{% url 'admin:user_withdrawal' user.uuid %}">
+        <button class="cancel mw" type="submit">Отклонить</button>
+    </form>
+{% endblock %}

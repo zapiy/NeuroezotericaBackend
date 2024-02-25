@@ -1,0 +1,17 @@
+{% extends "./base.html" %}
+
+{% block tab_content %}
+    <form method="POSTM" action="{% url 'admin:user_edit_data' user.uuid %}">
+        <div class="just-input mw">
+            <label>Имя</label>
+            <input type="text" name="first_name" class="fw" value="{{ user.first_name|default_if_none:'' }}" required>
+        </div>
+
+        <div class="just-input mw">
+            <label>Фамилия</label>
+            <input type="text" name="last_name" class="fw" value="{{ user.last_name|default_if_none:'' }}">
+        </div>
+
+        <button class="primary mw" type="submit">Сохранить</button>
+    </form>
+{% endblock %}

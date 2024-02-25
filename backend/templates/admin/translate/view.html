@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    <section id="content">
+        <div class="table-overflow">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Код</th>
+                    <th>Отображаемое название</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in locales %}
+                    <tr
+                        {% if not item.readonly %}
+                            a-linked = "{% url 'admin:translate' item.code %}"
+                        {% endif %}
+                    >
+                        <td><svg class="flag"><use xlink:href="/static/res/flags.svg#{{ item.code }}"></use></svg></td>
+                        <th>{{ item.code }}</th>
+                        <th>{{ item.preview_name|default_if_none:"<Не указано>" }}</th>
+                        {% if item.readonly %}
+                            <td class="gold">Вложенный, неизменный</td>
+                        {% elif item.available %}
+                            <td class="confirm">Доступен</td>
+                        {% else %}
+                            <td class="cancel">Не доступно, перевод не окончен</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tr class="expand" a-linked = "{% url 'admin:translate' 'add' %}">
+                <th colspan="100%">
+                    <div class="inner">
+                    <span class="material-symbols-outlined">add</span>
+                    Добавить перевод
+                    </div>
+                </th>
+            </tr>
+        </table>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "../base.html" %}
+
+{% block content %}
+  <section id="content">
+
+    <svg class="flag"><use xlink:href="/static/res/flags.svg#{{ locale.code }}"></use></svg>
+    <h1 class="mh">Перевод для {{ locale.code }}</h1>
+    
+    <div class="tab-navigation">
+        <ul class="inner">
+          {% for key, value in tabs.all.items %}
+            {% if key == tabs.current %}
+              <li class="current">{{ value }}</li>
+            {% else %}
+              <li>
+                  <a href="{% url 'admin:translate' locale.code %}?tab={{ key }}">{{ value }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% block tab_content %}{% endblock %}
+  </section>
+{% endblock %}
